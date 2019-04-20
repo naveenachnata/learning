@@ -1,0 +1,20 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+
+pool: 'Hosted Ubuntu 1604'
+
+resources:
+  repositories:
+    - repository: myTemplates
+      type: github
+      name: gustavobergamim/azure-pipelines-yaml-templates
+      ref: 'refs/heads/dev/basic-template'
+      endpoint: 'GustavoBergamim GitHub'
+
+steps:
+- template: netcore-build-publish.yml@myTemplates
+  parameters:
+    buildConfiguration: 'Release'
+    hasUnitTests: 'false'
+    appName: 'WebApp'
